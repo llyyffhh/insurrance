@@ -1,0 +1,47 @@
+{% extends 'cms_base.html' %}
+
+{% block title %}
+    CMS用户管理
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('css/cms_cmsusers.css') }}">
+    <script src=" {{ static('js/cms_delusers.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-box">
+        <a href="{{ url_for('user.add_user') }}" class="btn btn-warning">添加操作员</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <th>用户名</th>
+            <th>加入时间</th>
+            <th>权限</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.create_time }}</td>
+
+                    <td>
+                        <span class="label label-success">{{ user.permission }}</span>
+                    </td>
+                    <td>
+                        {% if user.permission != '管理员' %}
+                            <a href="{{ url_for('user.edit_user',user_id=user.id) }}" class="btn btn-primary btn-xs">编辑</a>
+                            <a href="{{ url_for('user.del_user',user_id=user.id) }}" class="btn btn-danger btn-xs" name="del">删除</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'cms_base.html' %}
+
+{% block head %}
+
+<script src="{{ static('js/work.js') }}"></script>
+
+{% endblock %}
+{% block title %}{% endblock %}
+{% block page_title %}{{ self.title() }}{% endblock %}
+
+{% block main_content %}
+<div>
+<div class="container body-content" style="padding-top:10px; padding-right: 180px; padding-left: 0px" >
+    <div class="panel panel-default" id="#toolbar">
+        <div class="panel-heading">医疗保险查询条件</div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="control-label">身份证号：</label>
+                        <input id="num" type="text" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">姓名：</label>
+                        <input id="name" type="text" class="form-control">
+                    </div>
+                        <input class="btn btn-primary" type="button" id='query' value="查询" onclick= "SearchData()">
+
+                </div>
+
+                <div class="row text-right"  style="margin-top:10px;">
+                    <div class="col-sm-12">
+                        <input class="btn btn-success" type="button"  value="缴费" onclick="Pay()">
+                        <input class="btn btn-warning" type="button" id='add-data' value="新增" data-target="#add-dialog">
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table id="table"></table>
+</div>
+    <div class="modal fade" id="add-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加详情</h4>
+      </div>
+      <div class="modal-body">
+          <form action="" class="form-horizontal" id="data">
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">姓名：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="add-name" placeholder="姓名">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">身份证号：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="add-num" placeholder="身份证号">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">电话号：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="add-tel" placeholder="可不填">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">缴费金额：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="add-money" placeholder="单位(元)">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">是否为低保：</label>
+                  <div class="col-sm-10">
+                      <select name="add-low" id="add-low">
+                      <option value="0">否</option>
+                      <option value="1">是</option>
+                  </select>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="save-btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- 模态框（Modal） -->
+    <div class="modal fade" id="pay-money" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×
+				</button>
+				<h4 class="modal-title" id="money">
+					请输入缴费金额
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" class="form-horizontal" id="data">
+
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">缴费金额：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="pay-money" placeholder="单位(元)">
+                  </div>
+              </div>
+          </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+						data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" id="commit">
+					确认
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+{% endblock %}
+

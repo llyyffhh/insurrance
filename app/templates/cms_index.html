@@ -1,0 +1,42 @@
+{% extends 'cms_base.html' %}
+{% block head %}
+<script src="{{ static('js/index.js') }}"></script>
+{% endblock %}
+{% block title %}
+    CMS管理系统
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block main_content %}
+   <div class="page-header">
+  <h1> 欢迎！{{  g.cms_user.name }} <small>今日业务</small></h1>
+    </div>
+
+<div class="container body-content" style="padding-top:10px; padding-right: 180px; padding-left: 0px" >
+    <div class="panel panel-default" id="#toolbar">
+        <div class="panel-heading">今日业务汇总</div>
+        <div class="panel-body">
+           <ul class="list-inline">
+               <li><h4>今日缴费总金额为：{{ moneys }}元</h4></li>
+               <li><h4>笔数为：{{ len }}笔</h4></li>
+               <li><button class="btn btn-primary" id='detail' >点击查看详情</button></li>
+               <li><h4>总共合计缴费：{{ total }}元</h4></li>
+               <li><h4>总共合计缴费笔数为：{{ person }}笔</h4></li>
+
+            </ul>
+
+        </div>
+
+    <table id="table" ></table>
+
+
+
+
+
+{% endblock %}
+
+
+

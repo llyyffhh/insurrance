@@ -1,0 +1,138 @@
+{% extends 'cms_base.html' %}
+
+{% block title %}
+    历史记录
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('common/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ static('common/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css') }}">
+    <script src="{{ static('common/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js') }}"></script>
+    <script src="{{ static('common/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js')}}"></script>
+    <script src="{{ static('js/history.js') }}"></script>
+
+
+{% endblock %}
+
+{% block main_content %}
+
+
+<div class="container body-content" style="padding-top:10px; padding-right: 180px; padding-left: 0px" >
+    <div class="panel panel-default" id="#toolbar">
+        <div class="panel-heading">历史记录查询</div>
+        <div class="panel-body">
+             <form class="form-inline" method="post" id="query">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="control-label">身份证号：</label>
+                        <input id="num" type="text" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">姓名：</label>
+                        <input id="name" type="text" class="form-control">
+                    </div>
+				<div class="col-sm-4">
+                    <label class="control-label">查询日期：</label>
+
+					<div class="input-group date form_datetime"
+						data-date-format="dd-MM-yyyy" data-link-field="dtp_input1">
+						<input class="form-control" size="16" type="text" name="date"
+							id='day' value="" readonly> <span
+							class="input-group-addon"> <span
+							class="glyphicon glyphicon-remove"></span>
+						</span> <span class="input-group-addon"> <span
+							class="glyphicon glyphicon-th"></span>
+						</span>
+					</div>
+
+                <div class="row text-right"  style="margin-top:10px;">
+                    <div class="col-sm-12">
+                        <input class="btn btn-primary" type="button"  value="查询" onclick="query()" id="query-data">
+                        <input class="btn btn-warning" type="button" id='edit-data' value="修改" data-target="#add-dialog">
+                        <input class="btn btn-danger" type="button"  value="删除" onclick="deleteInfo()">
+
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+        </div>
+ <table id="table" ></table>
+     <div class="modal fade" id="edit-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+      </div>
+      <div class="modal-body">
+          <form action="" class="form-horizontal" id="data">
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">姓名：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="edit-name" placeholder="姓名" id="edit-name">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">身份证号：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="edit-num" placeholder="身份证号" id="edit-num">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">电话号：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="edit-tel" placeholder="可不填" id="edit-tel">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">缴费金额：</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="edit-money" placeholder="单位(元)" id='edit-money'>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">是否为低保：</label>
+                  <div class="col-sm-10">
+                      <select name="edit-low" id="edit-low">
+                      <option value="0">否</option>
+                      <option value="1">是</option>
+                  </select>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="save-btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script type="text/javascript">
+	//初始化标签，配置日期格式插件相关参数
+	$(function() {
+		$(".form_datetime").datetimepicker({
+			format : 'yyyy-mm-dd',
+			minView : 'month',
+			language : 'zh-CN',
+			autoclose : true,//选中自动关闭
+			startDate : '1900-01-01',
+			todayBtn : true
+		//显示今日按钮
+		});
+	});
+</script>
+
+
+
+{% endblock %}
+
